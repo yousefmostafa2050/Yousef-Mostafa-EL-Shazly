@@ -1,0 +1,2752 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zezo PC House - متجر متكامل لأجهزة الكمبيوتر وملحقاتها</title>
+    <meta name="description" content="أكبر متجر لأجهزة الكمبيوتر واللاب توب والاكسسوارات في مصر - صيانة فورية - ضمان شامل - أسعار تنافسية">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Splide Slider -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+    
+    <!-- LightGallery -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lightgallery.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --text-color: #333;
+            --text-light: #7f8c8d;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #f9f9f9;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .navbar.scrolled {
+            padding: 0.5rem 2rem;
+            background-color: rgba(44, 62, 80, 0.95);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-left: 10px;
+            color: var(--primary-color);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin: 0 10px;
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: var(--transition);
+            display: block;
+        }
+        
+        .nav-links a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: var(--shadow);
+            border-radius: 5px;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 1;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(10px);
+        }
+        
+        .dropdown-content li {
+            margin: 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .dropdown-content a {
+            color: var(--dark-color);
+            padding: 12px 20px;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            margin-top: 70px;
+            overflow: hidden;
+        }
+        
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .slide.active {
+            opacity: 1;
+        }
+        
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .slide .text {
+            position: absolute;
+            color: white;
+            text-align: center;
+            max-width: 800px;
+            padding: 0 20px;
+            z-index: 1;
+        }
+        
+        .slide .text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        
+        .slide .text p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+        
+        .btn:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.4);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid white;
+            margin-right: 15px;
+        }
+        
+        .btn-outline:hover {
+            background-color: white;
+            color: var(--primary-color);
+        }
+        
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 10;
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        
+        .prev {
+            right: 20px;
+        }
+        
+        .next {
+            left: 20px;
+        }
+        
+        .dots-container {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            z-index: 10;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            margin: 0 5px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .dot.active {
+            background-color: white;
+            transform: scale(1.2);
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .features-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .feature-box {
+            text-align: center;
+            padding: 40px 20px;
+            border-radius: 10px;
+            transition: var(--transition);
+            background-color: var(--light-color);
+        }
+        
+        .feature-box:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .feature-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .feature-box p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        /* Products Section */
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark-color);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+        
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .product {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .product:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 1;
+        }
+        
+        .product-img {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .product:hover .product-img img {
+            transform: scale(1.1);
+        }
+        
+        .product-content {
+            padding: 20px;
+        }
+        
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+        
+        .product-price {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .current-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .old-price {
+            font-size: 1rem;
+            color: var(--text-light);
+            text-decoration: line-through;
+            margin-right: 10px;
+        }
+        
+        .product-rating {
+            color: var(--warning-color);
+            margin-bottom: 15px;
+        }
+        
+        .product-rating i {
+            font-size: 0.9rem;
+        }
+        
+        .add-to-cart {
+            width: 100%;
+            padding: 10px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+        
+        .add-to-cart:hover {
+            background-color: var(--dark-color);
+        }
+        
+        /* About Section */
+        .about {
+            background-color: var(--light-color);
+            padding: 80px 0;
+        }
+        
+        .about-container {
+            display: flex;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            gap: 50px;
+        }
+        
+        .about-img {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .about-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+        }
+        
+        .about-img:hover img {
+            transform: scale(1.05);
+        }
+        
+        .about-content {
+            flex: 1;
+        }
+        
+        .about-content h2 {
+            font-size: 2.2rem;
+            color: var(--dark-color);
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .about-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+        
+        .about-content p {
+            margin-bottom: 20px;
+            line-height: 1.8;
+            color: var(--text-color);
+        }
+        
+        .about-features {
+            margin-top: 30px;
+        }
+        
+        .about-feature {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .about-feature i {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-left: 10px;
+            margin-top: 3px;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .testimonials-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .testimonial-slider {
+            margin-top: 50px;
+        }
+        
+        .testimonial {
+            background-color: var(--light-color);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 0 15px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+        
+        .testimonial::before {
+            content: '\201C';
+            font-family: Georgia, serif;
+            font-size: 5rem;
+            color: rgba(52, 152, 219, 0.1);
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
+        
+        .testimonial-content {
+            margin-bottom: 20px;
+            line-height: 1.8;
+            font-style: italic;
+            color: var(--text-color);
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .testimonial-author img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-left: 15px;
+        }
+        
+        .author-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        /* Blog Section */
+        .blog {
+            padding: 80px 0;
+            background-color: var(--light-color);
+        }
+        
+        .blog-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .articles {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .article {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .article:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .article-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .article-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .article:hover .article-img img {
+            transform: scale(1.1);
+        }
+        
+        .article-content {
+            padding: 20px;
+        }
+        
+        .article-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        .article-meta i {
+            margin-left: 5px;
+        }
+        
+        .article-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+        
+        .article-excerpt {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .read-more {
+            color: var(--primary-color);
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            transition: var(--transition);
+        }
+        
+        .read-more i {
+            margin-right: 5px;
+            transition: var(--transition);
+        }
+        
+        .read-more:hover {
+            color: var(--accent-color);
+        }
+        
+        .read-more:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .contact-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .contact-info h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .contact-details {
+            margin-bottom: 30px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .contact-item i {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-left: 10px;
+            margin-top: 3px;
+        }
+        
+        .contact-text h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        
+        .contact-text p, .contact-text a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .contact-text a:hover {
+            color: var(--primary-color);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--light-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-color);
+            transition: var(--transition);
+        }
+        
+        .social-link:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-5px);
+        }
+        
+        .contact-form {
+            background-color: var(--light-color);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+        
+        .submit-btn:hover {
+            background-color: var(--dark-color);
+            transform: translateY(-3px);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .footer-col p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #bbb;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+            list-style: none;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: var(--transition);
+            display: block;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-color);
+            transform: translateX(-5px);
+        }
+        
+        .footer-links i {
+            margin-left: 5px;
+        }
+        
+        .footer-newsletter p {
+            margin-bottom: 20px;
+        }
+        
+        .newsletter-form {
+            display: flex;
+        }
+        
+        .newsletter-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        .newsletter-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0 15px;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .newsletter-btn:hover {
+            background-color: var(--accent-color);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-5px);
+        }
+        
+        /* Shopping Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background-color: white;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 1001;
+            transition: var(--transition);
+            overflow-y: auto;
+        }
+        
+        .cart-sidebar.active {
+            right: 0;
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-header h3 {
+            font-size: 1.3rem;
+            color: var(--dark-color);
+        }
+        
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+            transition: var(--transition);
+        }
+        
+        .close-cart:hover {
+            color: var(--accent-color);
+            transform: rotate(90deg);
+        }
+        
+        .cart-items {
+            padding: 20px;
+        }
+        
+        .cart-item {
+            display: flex;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item-img {
+            width: 80px;
+            height: 80px;
+            margin-left: 15px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .cart-item-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        .cart-item-title {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            color: var(--dark-color);
+        }
+        
+        .cart-item-price {
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+        }
+        
+        .quantity-btn {
+            width: 25px;
+            height: 25px;
+            background-color: var(--light-color);
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quantity-input {
+            width: 40px;
+            text-align: center;
+            margin: 0 5px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            padding: 3px;
+        }
+        
+        .remove-item {
+            background: none;
+            border: none;
+            color: var(--accent-color);
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        
+        .cart-total {
+            padding: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .cart-total h4 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+        
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .total-row:last-child {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+        }
+        
+        .cart-buttons {
+            padding: 0 20px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .cart-btn {
+            padding: 12px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .view-cart {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            border: none;
+        }
+        
+        .checkout {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+        }
+        
+        .view-cart:hover, .checkout:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .checkout:hover {
+            background-color: var(--dark-color);
+        }
+        
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+        
+        .cart-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Cart Icon in Navbar */
+        .cart-icon {
+            position: relative;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            background-color: var(--accent-color);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        
+        /* Quick View Modal */
+        .quick-view-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1002;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+        
+        .quick-view-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .quick-view-content {
+            background-color: white;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            position: relative;
+            animation: modalFadeIn 0.3s ease;
+        }
+        
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .close-quick-view {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+            z-index: 1;
+            transition: var(--transition);
+        }
+        
+        .close-quick-view:hover {
+            background-color: var(--accent-color);
+            transform: rotate(90deg);
+        }
+        
+        .quick-view-img {
+            flex: 1;
+            height: 500px;
+            overflow: hidden;
+        }
+        
+        .quick-view-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .quick-view-details {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+        
+        .quick-view-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+        
+        .quick-view-price {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .quick-view-rating {
+            color: var(--warning-color);
+            margin-bottom: 20px;
+        }
+        
+        .quick-view-description {
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        
+        .quick-view-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .quantity-selector button {
+            width: 40px;
+            height: 40px;
+            background-color: var(--light-color);
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        
+        .quantity-selector input {
+            width: 60px;
+            height: 40px;
+            text-align: center;
+            border: none;
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+        }
+        
+        /* Maintenance Section */
+        .maintenance {
+            padding: 80px 0;
+            background-color: var(--light-color);
+        }
+        
+        .maintenance-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .service {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+        
+        .service:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .service-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+        
+        .service-description {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: var(--text-light);
+        }
+        
+        .service-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        /* FAQ Section */
+        .faq {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .faq-item {
+            margin-bottom: 15px;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .faq-question {
+            background-color: var(--light-color);
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .faq-question:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .faq-question i {
+            transition: var(--transition);
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: var(--transition);
+            background-color: white;
+        }
+        
+        .faq-item.active .faq-question {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 20px;
+            max-height: 500px;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about-container {
+                flex-direction: column;
+            }
+            
+            .about-img {
+                margin-bottom: 30px;
+                width: 100%;
+            }
+            
+            .quick-view-content {
+                flex-direction: column;
+                max-height: 90vh;
+            }
+            
+            .quick-view-img {
+                height: 300px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                width: 80%;
+                height: calc(100vh - 70px);
+                background-color: var(--secondary-color);
+                flex-direction: column;
+                align-items: center;
+                padding-top: 30px;
+                transition: var(--transition);
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .dropdown-content {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                box-shadow: none;
+                background-color: transparent;
+                display: none;
+            }
+            
+            .dropdown:hover .dropdown-content {
+                transform: none;
+            }
+            
+            .dropdown.active .dropdown-content {
+                display: block;
+            }
+            
+            .dropdown-content a {
+                color: white;
+                padding: 10px 0;
+            }
+            
+            .slide .text h1 {
+                font-size: 2.5rem;
+            }
+            
+            .slide .text p {
+                font-size: 1.2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .cart-sidebar {
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .slide .text h1 {
+                font-size: 2rem;
+            }
+            
+            .slide .text p {
+                font-size: 1rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .articles {
+                grid-template-columns: 1fr;
+            }
+            
+            .quick-view-actions {
+                flex-direction: column;
+            }
+            
+            .quantity-selector {
+                justify-content: center;
+            }
+        }
+        
+        /* Animation Classes */
+        .fade-in {
+            animation: fadeIn 1s ease;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .slide-in-left {
+            animation: slideInLeft 1s ease;
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .slide-in-right {
+            animation: slideInRight 1s ease;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--dark-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-laptop"></i>
+            Zezo PC House
+        </div>
+        
+        <ul class="nav-links">
+            <li><a href="#home" class="active">الرئيسية</a></li>
+            <li class="dropdown">
+                <a href="#products">المنتجات <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-content">
+                    <li><a href="#desktops">أجهزة الكمبيوتر</a></li>
+                    <li><a href="#laptops">أجهزة اللاب توب</a></li>
+                    <li><a href="#accessories">الاكسسوارات</a></li>
+                    <li><a href="#gaming">أجهزة الجيمينج</a></li>
+                    <li><a href="#components">قطع الغيار</a></li>
+                </ul>
+            </li>
+            <li><a href="#maintenance">الصيانة</a></li>
+            <li><a href="#about">عن الشركة</a></li>
+            <li><a href="#blog">المدونة</a></li>
+            <li><a href="#contact">اتصل بنا</a></li>
+            <li>
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </div>
+            </li>
+        </ul>
+        
+        <button class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="slideshow-container">
+            <div class="slide active">
+                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Computer Setup">
+                <div class="text">
+                    <h1>أفضل أجهزة الكمبيوتر بأسعار تنافسية</h1>
+                    <p>اكتشف أحدث الأجهزة بأعلى المواصفات لتناسب جميع احتياجاتك</p>
+                    <a href="#products" class="btn btn-outline">تصفح المنتجات</a>
+                    <a href="#contact" class="btn">تواصل معنا</a>
+                </div>
+            </div>
+            
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1593640408182-31c228c7b83e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Laptops">
+                <div class="text">
+                    <h1>أجهزة لاب توب عالية الأداء</h1>
+                    <p>اختر من بين مجموعة واسعة من أجهزة اللاب توب لأعمالك ودراستك وألعابك</p>
+                    <a href="#laptops" class="btn btn-outline">عرض الأجهزة</a>
+                    <a href="#maintenance" class="btn">خدمات الصيانة</a>
+                </div>
+            </div>
+            
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Gaming Setup">
+                <div class="text">
+                    <h1>أجهزة الجيمينج المثالية</h1>
+                    <p>احصل على تجربة ألعاب لا مثيل لها مع أجهزتنا المخصصة للاعبين</p>
+                    <a href="#gaming" class="btn btn-outline">استكشف الأجهزة</a>
+                    <a href="#contact" class="btn">اطلب الآن</a>
+                </div>
+            </div>
+            
+            <div class="prev" onclick="changeSlide(-1)">&#10095;</div>
+            <div class="next" onclick="changeSlide(1)">&#10094;</div>
+            
+            <div class="dots-container">
+                <span class="dot active" onclick="goToSlide(0)"></span>
+                <span class="dot" onclick="goToSlide(1)"></span>
+                <span class="dot" onclick="goToSlide(2)"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="features-container">
+            <div class="feature-box" data-aos="fade-up" data-aos-delay="100">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>ضمان شامل</h3>
+                <p>جميع منتجاتنا تأتي بضمان يصل إلى 3 سنوات لضمان راحتك وثقتك بمنتجاتنا</p>
+            </div>
+            
+            <div class="feature-box" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-icon">
+                    <i class="fas fa-truck"></i>
+                </div>
+                <h3>توصيل سريع</h3>
+                <p>خدمة توصيل سريعة لجميع أنحاء البلاد خلال 24-48 ساعة حسب الموقع</p>
+            </div>
+            
+            <div class="feature-box" data-aos="fade-up" data-aos-delay="300">
+                <div class="feature-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3>دعم فني 24/7</h3>
+                <p>فريق دعم فني متاح على مدار الساعة لمساعدتك في أي استفسارات أو مشاكل</p>
+            </div>
+            
+            <div class="feature-box" data-aos="fade-up" data-aos-delay="400">
+                <div class="feature-icon">
+                    <i class="fas fa-undo"></i>
+                </div>
+                <h3>إرجاع سهل</h3>
+                <p>سياسة إرجاع لمدة 14 يومًا دون أي متاعب أو أسئلة</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Desktop Computers Section -->
+    <section id="desktops" class="section">
+        <div class="section-title">
+            <h2>أجهزة الكمبيوتر المكتبية</h2>
+            <p>اختر من بين مجموعة واسعة من أجهزة الكمبيوتر المكتبية بأعلى المواصفات</p>
+        </div>
+        
+        <div class="products">
+            <div class="product" data-aos="fade-up" data-aos-delay="100">
+                <div class="product-badge">الأكثر مبيعًا</div>
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80" alt="Desktop Computer">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">جهاز كمبيوتر فائقة الأداء</h3>
+                    <div class="product-price">
+                        <span class="old-price">8,500 ج.م</span>
+                        <span class="current-price">7,650 ج.م</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>(24)</span>
+                    </div>
+                    <button class="add-to-cart">إضافة إلى السلة</button>
+                    <button class="quick-view-btn">عرض سريع</button>
+                </div>
+            </div>
+            
+            <!-- Repeat for other products (total 10) -->
+            <div class="product" data-aos="fade-up" data-aos-delay="200">
+                <!-- Product content -->
+            </div>
+            
+            <!-- Add 8 more products -->
+        </div>
+        
+        <div class="text-center" style="margin-top: 40px;">
+            <a href="#products" class="btn">عرض جميع المنتجات</a>
+        </div>
+    </section>
+
+    <!-- Laptops Section -->
+    <section id="laptops" class="section bg-light">
+        <div class="section-title">
+            <h2>أجهزة اللاب توب</h2>
+            <p>اكتشف أحدث أجهزة اللاب توب من أفضل الماركات العالمية</p>
+        </div>
+        
+        <div class="products">
+            <!-- Add 10 laptop products -->
+        </div>
+    </section>
+
+    <!-- Maintenance Section -->
+    <section id="maintenance" class="maintenance">
+        <div class="section-title">
+            <h2>خدمات الصيانة</h2>
+            <p>نقدم خدمات صيانة متكاملة لأجهزة الكمبيوتر واللاب توب</p>
+        </div>
+        
+        <div class="services">
+            <div class="service" data-aos="fade-up" data-aos-delay="100">
+                <div class="service-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <h3 class="service-title">صيانة الأجهزة</h3>
+                <p class="service-description">إصلاح جميع مشاكل الأجهزة بما في ذلك اللوحات الأم، محركات الأقراص، شاشات العرض وغيرها</p>
+                <div class="service-price">تبدأ من 300 ج.م</div>
+                <a href="#contact" class="btn">احجز الآن</a>
+            </div>
+            
+            <div class="service" data-aos="fade-up" data-aos-delay="200">
+                <div class="service-icon">
+                    <i class="fas fa-broom"></i>
+                </div>
+                <h3 class="service-title">تنظيف الأجهزة</h3>
+                <p class="service-description">تنظيف شامل للأجهزة من الأتربة والغبار لضمان أداء أفضل وتبريد أكثر كفاءة</p>
+                <div class="service-price">تبدأ من 200 ج.م</div>
+                <a href="#contact" class="btn">احجز الآن</a>
+            </div>
+            
+            <div class="service" data-aos="fade-up" data-aos-delay="300">
+                <div class="service-icon">
+                    <i class="fas fa-virus"></i>
+                </div>
+                <h3 class="service-title">إزالة الفيروسات</h3>
+                <p class="service-description">تنظيف الجهاز من جميع أنواع الفيروسات والبرمجيات الخبيثة مع تثبيت برامج حماية</p>
+                <div class="service-price">تبدأ من 250 ج.م</div>
+                <a href="#contact" class="btn">احجز الآن</a>
+            </div>
+            
+            <div class="service" data-aos="fade-up" data-aos-delay="400">
+                <div class="service-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <h3 class="service-title">استعادة البيانات</h3>
+                <p class="service-description">استرجاع الملفات والبيانات المفقودة من الأقراص الصلبة التالفة أو المحذوفة</p>
+                <div class="service-price">تبدأ من 500 ج.م</div>
+                <a href="#contact" class="btn">احجز الآن</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="about-container">
+            <div class="about-img" data-aos="fade-right">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Our Team">
+            </div>
+            
+            <div class="about-content" data-aos="fade-left">
+                <h2>من نحن</h2>
+                <p>Zezo PC House هي شركة رائدة في مجال تكنولوجيا المعلومات تأسست عام 2010، متخصصة في توريد وبيع أجهزة الكمبيوتر واللاب توب والاكسسوارات ذات الجودة العالية.</p>
+                <p>نحن نقدم حلولاً تقنية متكاملة تلبي احتياجات الأفراد والشركات على حد سواء، مع التركيز على الجودة، الأسعار التنافسية، وخدمة العملاء المتميزة.</p>
+                
+                <div class="about-features">
+                    <div class="about-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <h4>10+ سنوات من الخبرة</h4>
+                            <p>أكثر من عقد من الخبرة في مجال التكنولوجيا</p>
+                        </div>
+                    </div>
+                    
+                    <div class="about-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <h4>5000+ عميل راضٍ</h4>
+                            <p>آلاف العملاء الذين يثقون بنا ويوصون بنا</p>
+                        </div>
+                    </div>
+                    
+                    <div class="about-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <h4>50+ ماركة عالمية</h4>
+                            <p>شراكات مع أكبر الماركات العالمية في مجال التكنولوجيا</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="#contact" class="btn">تواصل معنا</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="section-title">
+            <h2>آراء عملائنا</h2>
+            <p>ما يقوله عملاؤنا عن خدماتنا ومنتجاتنا</p>
+        </div>
+        
+        <div class="testimonials-container">
+            <div class="testimonial-slider">
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <p>اشتريت جهاز لاب توب من Zezo PC House وكانت تجربة رائعة. الجهاز ممتاز والسعر كان منافسًا جدًا. فريق الدعم كان متعاونًا جدًا وأجابوا على جميع استفساراتي.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Ahmed Mohamed">
+                        <div class="author-info">
+                            <h4>أحمد محمد</h4>
+                            <p>عميل منذ 2022</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <p>خدمة الصيانة سريعة وفعالة. أصلحوا جهازي في أقل من 24 ساعة وكان السعر معقولاً جدًا مقارنة بالخدمة المقدمة. أوصي بهم بشدة لأي شخص يحتاج إلى صيانة كمبيوتر.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Mona Ali">
+                        <div class="author-info">
+                            <h4>منى علي</h4>
+                            <p>عميل منذ 2021</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <p>تعاملت مع Zezo PC House لتجهيز مكتب شركتنا بأجهزة كمبيوتر جديدة. كانوا محترفين جدًا ونصحونا بأفضل الأجهزة التي تناسب احتياجاتنا وميزانيتنا. سنتعامل معهم دائمًا في المستقبل.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Omar Samir">
+                        <div class="author-info">
+                            <h4>عمر سمير</h4>
+                            <p>مدير شركة - عميل منذ 2020</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="blog">
+        <div class="section-title">
+            <h2>أحدث المقالات</h2>
+            <p>اكتشف أحدث الأخبار والنصائح في عالم التكنولوجيا</p>
+        </div>
+        
+        <div class="blog-container">
+            <div class="articles">
+                <article class="article" data-aos="fade-up" data-aos-delay="100">
+                    <div class="article-img">
+                        <img src="https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Gaming PC">
+                    </div>
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar-alt"></i> 15 يونيو 2023</span>
+                            <span><i class="far fa-comments"></i> 12 تعليق</span>
+                        </div>
+                        <h3 class="article-title">كيف تختار جهاز كمبيوتر للألعاب في 2023؟</h3>
+                        <p class="article-excerpt">دليل شامل لاختيار أفضل مواصفات لجهاز كمبيوتر الألعاب مع مقارنة بين الخيارات المتاحة في السوق...</p>
+                        <a href="#" class="read-more">قراءة المزيد <i class="fas fa-arrow-left"></i></a>
+                    </div>
+                </article>
+                
+                <article class="article" data-aos="fade-up" data-aos-delay="200">
+                    <div class="article-img">
+                        <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1528&q=80" alt="Laptop Maintenance">
+                    </div>
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar-alt"></i> 5 يونيو 2023</span>
+                            <span><i class="far fa-comments"></i> 8 تعليقات</span>
+                        </div>
+                        <h3 class="article-title">10 نصائح للحفاظ على لاب توبك يعمل بكفاءة</h3>
+                        <p class="article-excerpt">تعرف على أهم النصائح التي ستساعدك في الحفاظ على أداء لاب توبك وتطيل عمره الافتراضي...</p>
+                        <a href="#" class="read-more">قراءة المزيد <i class="fas fa-arrow-left"></i></a>
+                    </div>
+                </article>
+                
+                <article class="article" data-aos="fade-up" data-aos-delay="300">
+                    <div class="article-img">
+                        <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Computer Components">
+                    </div>
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar-alt"></i> 22 مايو 2023</span>
+                            <span><i class="far fa-comments"></i> 15 تعليق</span>
+                        </div>
+                        <h3 class="article-title">أفضل قطع الكمبيوتر لتركيب جهاز قوي بميزانية محدودة</h3>
+                        <p class="article-excerpt">دليل مفصل لأفضل قطع الكمبيوتر التي تقدم أداءً ممتازًا مقابل سعر معقول لبناء جهاز قوي...</p>
+                        <a href="#" class="read-more">قراءة المزيد <i class="fas fa-arrow-left"></i></a>
+                    </div>
+                </article>
+            </div>
+            
+            <div class="text-center" style="margin-top: 40px;">
+                <a href="#" class="btn">عرض جميع المقالات</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="section-title">
+            <h2>الأسئلة الشائعة</h2>
+            <p>إجابات على أكثر الأسئلة التي تردنا من عملائنا</p>
+        </div>
+        
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>ما هي مدة الضمان على المنتجات؟</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>تختلف مدة الضمان حسب نوع المنتج والشركة المصنعة. بشكل عام، أجهزة الكمبيوتر المكتبية واللاب توب تأتي بضمان يتراوح بين سنة إلى 3 سنوات، بينما الإكسسوارات عادةً ما تكون من 6 أشهر إلى سنة. يمكنك التحقق من تفاصيل الضمان لكل منتج في صفحة المنتج.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>هل يمكنني استرجاع المنتج إذا لم يعجبني؟</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>نعم، لدينا سياسة إرجاع لمدة 14 يومًا من تاريخ الاستلام. يجب أن يكون المنتج في حالته الأصلية مع جميع الملحقات والتغليف. بعض المنتجات مثل البرمجيات والمنتجات المفتوحة قد لا تكون قابلة للإرجاع.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>كم تستغرق عملية الصيانة؟</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>تختلف مدة الصيانة حسب نوع المشكلة. معظم أعمال الصيانة البسيطة يمكن إنجازها خلال 24-48 ساعة. للأعقدة التي تتطلب طلب قطع غيار، قد تستغرق من 3 إلى 7 أيام عمل حسب توفر القطع.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>هل تقدمون خدمة التوصيل إلى المنازل؟</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>نعم، نقدم خدمة التوصيل لجميع أنحاء البلاد. مدة التوصيل تتراوح بين 1-3 أيام عمل في المدن الكبرى، وقد تصل إلى 5 أيام عمل للمناطق البعيدة. رسوم التوصيل تختلف حسب الموقع وحجم المنتج.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>هل يمكنني الترقية إلى مواصفات أعلى لجهاز معين؟</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>نعم، نقدم خدمة التخصيص والترقية لمعظم أجهزتنا. يمكنك اختيار مواصفات أعلى للذاكرة، التخزين، المعالج، كرت الشاشة وغيرها من المكونات. اتصل بفريق المبيعات لمعرفة الخيارات المتاحة والأسعار.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="section-title">
+            <h2>اتصل بنا</h2>
+            <p>نحن هنا للإجابة على جميع استفساراتك</p>
+        </div>
+        
+        <div class="contact-container">
+            <div class="contact-info" data-aos="fade-right">
+                <h3>معلومات التواصل</h3>
+                
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div class="contact-text">
+                            <h4>العنوان</h4>
+                            <p>123 شارع التحرير، وسط البلد، القاهرة، مصر</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div class="contact-text">
+                            <h4>الهاتف</h4>
+                            <a href="tel:+201234567890">+20 123 456 7890</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div class="contact-text">
+                            <h4>البريد الإلكتروني</h4>
+                            <a href="mailto:info@zezopc.com">info@zezopc.com</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div class="contact-text">
+                            <h4>ساعات العمل</h4>
+                            <p>من الأحد إلى الخميس: 9 صباحًا - 10 مساءً<br>الجمعة والسبت: 12 ظهرًا - 10 مساءً</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 30px;">تابعنا على</h3>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="contact-form" data-aos="fade-left">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="اسمك بالكامل" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="email" class="form-control" placeholder="بريدك الإلكتروني" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="tel" class="form-control" placeholder="رقم الهاتف">
+                    </div>
+                    
+                    <div class="form-group">
+                        <select class="form-control" required>
+                            <option value="" disabled selected>موضوع الرسالة</option>
+                            <option value="sales">استفسار عن منتج</option>
+                            <option value="support">دعم فني</option>
+                            <option value="maintenance">خدمات الصيانة</option>
+                            <option value="other">موضوع آخر</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <textarea class="form-control" placeholder="رسالتك" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">إرسال الرسالة</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>عن Zezo PC House</h3>
+                <p>متجر متخصص في أجهزة الكمبيوتر وملحقاتها، نقدم أفضل المنتجات بأعلى جودة وأسعار تنافسية مع خدمة عملاء متميزة.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h3>روابط سريعة</h3>
+                <ul class="footer-links">
+                    <li><a href="#home"><i class="fas fa-chevron-left"></i> الرئيسية</a></li>
+                    <li><a href="#products"><i class="fas fa-chevron-left"></i> المنتجات</a></li>
+                    <li><a href="#maintenance"><i class="fas fa-chevron-left"></i> الصيانة</a></li>
+                    <li><a href="#about"><i class="fas fa-chevron-left"></i> عن الشركة</a></li>
+                    <li><a href="#blog"><i class="fas fa-chevron-left"></i> المدونة</a></li>
+                    <li><a href="#contact"><i class="fas fa-chevron-left"></i> اتصل بنا</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>خدماتنا</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-left"></i> بيع الأجهزة</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-left"></i> صيانة الأجهزة</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-left"></i> تركيب الشبكات</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-left"></i> استشارات تقنية</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-left"></i> تجهيز الشركات</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-left"></i> التدريب التقني</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>النشرة البريدية</h3>
+                <p>اشترك في نشرتنا البريدية لتصلك آخر العروض والأخبار التقنية.</p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="بريدك الإلكتروني" required>
+                    <button type="submit" class="newsletter-btn"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 Zezo PC House. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar">
+        <div class="cart-header">
+            <h3>سلة التسوق</h3>
+            <button class="close-cart">&times;</button>
+        </div>
+        
+        <div class="cart-items">
+            <!-- Cart items will be added dynamically -->
+            <div class="empty-cart-message">
+                <p>سلة التسوق فارغة</p>
+                <a href="#products" class="btn">تصفح المنتجات</a>
+            </div>
+        </div>
+        
+        <div class="cart-total">
+            <h4>ملخص الطلب</h4>
+            <div class="total-row">
+                <span>المجموع الفرعي</span>
+                <span class="subtotal">0 ج.م</span>
+            </div>
+            <div class="total-row">
+                <span>التوصيل</span>
+                <span class="shipping">50 ج.م</span>
+            </div>
+            <div class="total-row">
+                <span>الإجمالي</span>
+                <span class="total">50 ج.م</span>
+            </div>
+        </div>
+        
+        <div class="cart-buttons">
+            <button class="cart-btn view-cart">عرض السلة</button>
+            <button class="cart-btn checkout">إتمام الشراء</button>
+        </div>
+    </div>
+    
+    <!-- Cart Overlay -->
+    <div class="cart-overlay"></div>
+
+    <!-- Quick View Modal -->
+    <div class="quick-view-modal">
+        <div class="quick-view-content">
+            <button class="close-quick-view">&times;</button>
+            
+            <div class="quick-view-img">
+                <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80" alt="Product Image">
+            </div>
+            
+            <div class="quick-view-details">
+                <h2 class="quick-view-title">جهاز كمبيوتر فائقة الأداء</h2>
+                
+                <div class="quick-view-price">
+                    <span class="current-price">7,650 ج.م</span>
+                    <span class="old-price">8,500 ج.م</span>
+                </div>
+                
+                <div class="quick-view-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <span>(24 تقييم)</span>
+                </div>
+                
+                <div class="quick-view-description">
+                    <p>جهاز كمبيوتر مكتبي بمواصفات عالية، مثالي للألعاب والتطبيقات الثقيلة. يحتوي على معالج Intel Core i9-13900K، كرت شاشة NVIDIA RTX 4090، 32GB RAM DDR5، تخزين SSD 1TB + HDD 2TB، مع نظام تبريد سائل متطور.</p>
+                    
+                    <ul>
+                        <li>معالج: Intel Core i9-13900K (24 نواة، 32 خيط، تيربو حتى 5.8GHz)</li>
+                        <li>كرت الشاشة: NVIDIA GeForce RTX 4090 24GB GDDR6X</li>
+                        <li>الذاكرة: 32GB DDR5 5600MHz</li>
+                        <li>التخزين: SSD 1TB NVMe + HDD 2TB 7200RPM</li>
+                        <li>نظام التشغيل: Windows 11 Pro</li>
+                        <li>الضمان شعر بعد تاريخ الشراء</li>
+                    </ul>
+                </div>
+                
+                <div class="quick-view-actions">
+                    <div class="quantity-selector">
+                        <button class="quantity-decrease">-</button>
+                        <input type="number" value="1" min="1" class="quantity-input">
+                        <button class="quantity-increase">+</button>
+                    </div>
+                    
+                    <button class="add-to-cart">إضافة إلى السلة</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/lightgallery.min.js"></script>
+    
+    <script>
+        // Initialize AOS Animation
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+        
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        const dropdowns = document.querySelectorAll('.dropdown');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        dropdowns.forEach(dropdown => {
+            const link = dropdown.querySelector('a');
+            
+            link.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    dropdown.classList.toggle('active');
+                }
+            });
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        });
+        
+        // Slideshow
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+        
+        function changeSlide(n) {
+            showSlide(currentSlide + n);
+        }
+        
+        function goToSlide(n) {
+            showSlide(n);
+        }
+        
+        // Auto slide change every 5 seconds
+        setInterval(() => {
+            changeSlide(1);
+        }, 5000);
+        
+        // Initialize slides
+        showSlide(0);
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+            
+            // Show/hide back to top button
+            const backToTop = document.querySelector('.back-to-top');
+            backToTop.classList.toggle('active', window.scrollY > 300);
+        });
+        
+        // Back to top button
+        document.querySelector('.back-to-top').addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Smooth scrolling for all links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                }
+            });
+        });
+        
+        // Shopping Cart Functionality
+        const cartIcon = document.querySelector('.cart-icon');
+        const cartSidebar = document.querySelector('.cart-sidebar');
+        const cartOverlay = document.querySelector('.cart-overlay');
+        const closeCart = document.querySelector('.close-cart');
+        const addToCartBtns = document.querySelectorAll('.add-to-cart');
+        const cartItemsContainer = document.querySelector('.cart-items');
+        const emptyCartMessage = document.querySelector('.empty-cart-message');
+        const cartCount = document.querySelector('.cart-count');
+        const subtotalElement = document.querySelector('.subtotal');
+        const shippingElement = document.querySelector('.shipping');
+        const totalElement = document.querySelector('.total');
+        
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        function updateCart() {
+            // Update cart count
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            // Save cart to localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            // Update cart sidebar
+            renderCartItems();
+            
+            // Update cart totals
+            updateCartTotals();
+        }
+        
+        function renderCartItems() {
+            if (cart.length === 0) {
+                emptyCartMessage.style.display = 'block';
+                cartItemsContainer.innerHTML = '';
+            } else {
+                emptyCartMessage.style.display = 'none';
+                
+                let cartHTML = '';
+                cart.forEach((item, index) => {
+                    cartHTML += `
+                        <div class="cart-item" data-id="${item.id}">
+                            <div class="cart-item-img">
+                                <img src="${item.image}" alt="${item.title}">
+                            </div>
+                            <div class="cart-item-details">
+                                <h4 class="cart-item-title">${item.title}</h4>
+                                <p class="cart-item-price">${item.price} ج.م</p>
+                                <div class="cart-item-quantity">
+                                    <button class="quantity-btn decrease" data-id="${item.id}">-</button>
+                                    <input type="number" value="${item.quantity}" min="1" class="quantity-input" data-id="${item.id}">
+                                    <button class="quantity-btn increase" data-id="${item.id}">+</button>
+                                </div>
+                                <button class="remove-item" data-id="${item.id}">إزالة</button>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                cartItemsContainer.innerHTML = cartHTML;
+                
+                // Add event listeners to quantity buttons
+                document.querySelectorAll('.quantity-btn.decrease').forEach(btn => {
+                    btn.addEventListener('click', decreaseQuantity);
+                });
+                
+                document.querySelectorAll('.quantity-btn.increase').forEach(btn => {
+                    btn.addEventListener('click', increaseQuantity);
+                });
+                
+                document.querySelectorAll('.quantity-input').forEach(input => {
+                    input.addEventListener('change', changeQuantity);
+                });
+                
+                document.querySelectorAll('.remove-item').forEach(btn => {
+                    btn.addEventListener('click', removeItem);
+                });
+            }
+        }
+        
+        function updateCartTotals() {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const shipping = subtotal > 2000 ? 0 : 50;
+            const total = subtotal + shipping;
+            
+            subtotalElement.textContent = `${subtotal.toFixed(2)} ج.م`;
+            shippingElement.textContent = `${shipping.toFixed(2)} ج.م`;
+            totalElement.textContent = `${total.toFixed(2)} ج.م`;
+        }
+        
+        function addToCart(product) {
+            const existingItem = cart.find(item => item.id === product.id);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    ...product,
+                    quantity: 1
+                });
+            }
+            
+            updateCart();
+            
+            // Show notification
+            showNotification(`${product.title} تمت إضافته إلى السلة`);
+        }
+        
+        function decreaseQuantity(e) {
+            const id = e.target.getAttribute('data-id');
+            const item = cart.find(item => item.id === id);
+            
+            if (item.quantity > 1) {
+                item.quantity -= 1;
+            } else {
+                cart = cart.filter(item => item.id !== id);
+            }
+            
+            updateCart();
+        }
+        
+        function increaseQuantity(e) {
+            const id = e.target.getAttribute('data-id');
+            const item = cart.find(item => item.id === id);
+            item.quantity += 1;
+            updateCart();
+        }
+        
+        function changeQuantity(e) {
+            const id = e.target.getAttribute('data-id');
+            const item = cart.find(item => item.id === id);
+            const newQuantity = parseInt(e.target.value);
+            
+            if (newQuantity > 0) {
+                item.quantity = newQuantity;
+            } else {
+                cart = cart.filter(item => item.id !== id);
+            }
+            
+            updateCart();
+        }
+        
+        function removeItem(e) {
+            const id = e.target.getAttribute('data-id');
+            cart = cart.filter(item => item.id !== id);
+            updateCart();
+        }
+        
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 10);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+        
+        // Toggle cart sidebar
+        cartIcon.addEventListener('click', () => {
+            cartSidebar.classList.add('active');
+            cartOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeCart.addEventListener('click', () => {
+            cartSidebar.classList.remove('active');
+            cartOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        
+        cartOverlay.addEventListener('click', () => {
+            cartSidebar.classList.remove('active');
+            cartOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        
+        // Add to cart buttons
+        addToCartBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const productElement = btn.closest('.product');
+                const product = {
+                    id: productElement.getAttribute('data-id') || Math.random().toString(36).substr(2, 9),
+                    title: productElement.querySelector('.product-title').textContent,
+                    price: parseFloat(productElement.querySelector('.current-price').textContent.replace(/[^0-9.]/g, '')),
+                    image: productElement.querySelector('.product-img img').getAttribute('src')
+                };
+                
+                addToCart(product);
+            });
+        });
+        
+        // Quick View Modal
+        const quickViewModal = document.querySelector('.quick-view-modal');
+        const quickViewBtns = document.querySelectorAll('.quick-view-btn');
+        const closeQuickView = document.querySelector('.close-quick-view');
+        
+        quickViewBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const productElement = btn.closest('.product');
+                
+                // Set product details in modal
+                document.querySelector('.quick-view-title').textContent = productElement.querySelector('.product-title').textContent;
+                document.querySelector('.quick-view-img img').setAttribute('src', productElement.querySelector('.product-img img').getAttribute('src'));
+                
+                // Open modal
+                quickViewModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        closeQuickView.addEventListener('click', () => {
+            quickViewModal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        
+        quickViewModal.addEventListener('click', (e) => {
+            if (e.target === quickViewModal) {
+                quickViewModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // FAQ Accordion
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.closest('.faq-item');
+                faqItem.classList.toggle('active');
+                
+                // Close other open items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    if (item !== faqItem && item.classList.contains('active')) {
+                        item.classList.remove('active');
+                    }
+                });
+            });
+        });
+        
+        // Initialize cart on page load
+        updateCart();
+        
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Here you would typically send the form data to a server
+            // For this example, we'll just show a success message
+            showNotification('تم إرسال رسالتك بنجاح! سنتواصل معك قريبًا.');
+            this.reset();
+        });
+        
+        // Newsletter form submission
+        document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Here you would typically send the email to a server
+            // For this example, we'll just show a success message
+            showNotification('شكرًا للاشتراك في نشرتنا البريدية!');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
